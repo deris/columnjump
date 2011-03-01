@@ -1,5 +1,5 @@
-" columnjump - 列に対してwのような移動を行うプラグイン(α版）
-" Version: 0.0.0
+" columnjump - カーソル位置と同一列の次の文字列（列方向の）まで移動する
+" Version: 0.0.1
 " Copyright (C) 2011 deris0126
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -29,13 +29,13 @@ let g:loaded_columnjump = 1
 
 " Public API {{{1
 
-" 列に対してwのような移動を行う（上方に向かって）
+" カーソル位置と同一列の次の文字列（列方向の）まで移動する（上方に向かって）
 function! columnjump#backword() "{{{2
   return columnjump#jump(-1)
 endfunction
 "}}}
 
-" 列に対してwのような移動を行う（下方に向かって）
+" カーソル位置と同一列の次の文字列（列方向の）まで移動する（下方に向かって）
 function! columnjump#forword() "{{{2
   return columnjump#jump(1)
 endfunction
@@ -44,9 +44,9 @@ endfunction
 "}}}
 
 " Private {{{1
-" 列に対してwのような移動を行う
-"  direct_pが0より大きければ下方に
-"  上記以外であれば上方に移動する
+" カーソル位置と同一列の次の文字列（列方向の）まで移動する
+"  direct_pが0より大きければ下方に向かって
+"  上記以外であれば上方に向かって移動する
 function! columnjump#jump(direct_p) "{{{2
   " 仮想編集を有効にする
   let s:save_virtualedit = &virtualedit
