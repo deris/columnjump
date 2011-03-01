@@ -30,13 +30,13 @@ let g:loaded_columnjump = 1
 " Public API {{{1
 
 " カーソル位置と同一列の次の文字列（列方向の）まで移動する（上方に向かって）
-function! columnjump#backword() "{{{2
+function! columnjump#backward() "{{{2
   return columnjump#jump(-1)
 endfunction
 "}}}
 
 " カーソル位置と同一列の次の文字列（列方向の）まで移動する（下方に向かって）
-function! columnjump#forword() "{{{2
+function! columnjump#forward() "{{{2
   return columnjump#jump(1)
 endfunction
 "}}}
