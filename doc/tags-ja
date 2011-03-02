@@ -1,0 +1,12 @@
+!_TAG_FILE_ENCODING	utf-8	//
+<Plug>(columnjump-backward)	columnjump.jax	/*<Plug>(columnjump-backward)*
+<Plug>(columnjump-forward)	columnjump.jax	/*<Plug>(columnjump-forward)*
+columnjump	columnjump.jax	/*columnjump*
+columnjump-bugs	columnjump.jax	/*columnjump-bugs*
+columnjump-changelog	columnjump.jax	/*columnjump-changelog*
+columnjump-contents	columnjump.jax	/*columnjump-contents*
+columnjump-examples	columnjump.jax	/*columnjump-examples*
+columnjump-interface	columnjump.jax	/*columnjump-interface*
+columnjump-introduction	columnjump.jax	/*columnjump-introduction*
+columnjump-mappings	columnjump.jax	/*columnjump-mappings*
+columnjump.jax	columnjump.jax	/*columnjump.jax*
