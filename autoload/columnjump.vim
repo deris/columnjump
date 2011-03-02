@@ -1,5 +1,5 @@
 " columnjump - カーソル位置と同一列の次の文字列（列方向の）まで移動する
-" Version: 0.0.1
+" Version: 0.0.2
 " Copyright (C) 2011 deris0126
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -21,11 +21,6 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-
-if exists('g:loaded_columnjump')
-  finish
-endif
-let g:loaded_columnjump = 1
 
 " Public API {{{1
 
@@ -52,56 +47,58 @@ function! columnjump#jump(direct_p) "{{{2
   let s:save_virtualedit = &virtualedit
   let &virtualedit = 'all'
 
-  let l:cur_line = line('.')
-  let l:last_line = line('$')
+  for i in range(v:count1)
+    let l:cur_line = line('.')
+    let l:last_line = line('$')
 
-  if s:is_end_of_jump(a:direct_p, l:cur_line, l:last_line)
-    return 0
-  endif
-
-  let l:cur_virtcol  = virtcol('.')
-  " カーソル位置の文字
-  let l:cur_char  = s:get_character_under_cursor()
-
-  if s:is_space(l:cur_char)
-    " spaceをskipするモード
-    let l:skip_space = 1
-  else
-    " spaceをskipしないモード
-    let l:skip_space = 0
-  endif
-
-  while 1
-    " fold考慮しないと終端行でループする。。。
-    silent! foldopen!
-    if a:direct_p > 0
-      normal j
-    else
-      normal k
-    endif
-
-    " 移動前のスクリーン桁位置に移動
-    exe 'normal ' . l:cur_virtcol . '|'
-
-    if s:is_end_of_jump(a:direct_p, line('.'), l:last_line)
+    if s:is_end_of_jump(a:direct_p, l:cur_line, l:last_line)
       break
     endif
 
-    let l:wk_char  = s:get_character_under_cursor()
-    if l:skip_space == 1
-      if !s:is_space(l:wk_char)
-        " spaceをskipするモードでspaceでは
-        " なくなったらループを抜ける
+    let l:cur_virtcol  = virtcol('.')
+    " カーソル位置の文字
+    let l:cur_char  = s:get_character_under_cursor()
+
+    if s:is_space(l:cur_char)
+      " spaceをskipするモード
+      let l:skip_space = 1
+    else
+      " spaceをskipしないモード
+      let l:skip_space = 0
+    endif
+
+    while 1
+      " fold考慮しないと終端行でループする。。。
+      silent! foldopen!
+      if a:direct_p > 0
+        normal! j
+      else
+        normal! k
+      endif
+
+      " 移動前のスクリーン桁位置に移動
+      exe 'normal! ' . l:cur_virtcol . '|'
+
+      if s:is_end_of_jump(a:direct_p, line('.'), l:last_line)
         break
       endif
-    else
-      if s:is_space(l:wk_char)
-        " 移動前がspaceでなくてspaceまで移動したら
-        " spaceをskipするモードに移行
-        let l:skip_space = 1
+
+      let l:wk_char  = s:get_character_under_cursor()
+      if l:skip_space == 1
+        if !s:is_space(l:wk_char)
+          " spaceをskipするモードでspaceでは
+          " なくなったらループを抜ける
+          break
+        endif
+      else
+        if s:is_space(l:wk_char)
+          " 移動前がspaceでなくてspaceまで移動したら
+          " spaceをskipするモードに移行
+          let l:skip_space = 1
+        endif
       endif
-    endif
-  endwhile
+    endwhile
+  endfor
 
   let &virtualedit = s:save_virtualedit
 
