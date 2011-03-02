@@ -25,14 +25,14 @@
 " Public API {{{1
 
 " カーソル位置と同一列の次の文字列（列方向の）まで移動する（上方に向かって）
-function! columnjump#backward() "{{{2
-  return columnjump#jump(-1)
+function! columnjump#backward(mode_p) "{{{2
+  return columnjump#jump(-1, a:mode_p)
 endfunction
 "}}}
 
 " カーソル位置と同一列の次の文字列（列方向の）まで移動する（下方に向かって）
-function! columnjump#forward() "{{{2
-  return columnjump#jump(1)
+function! columnjump#forward(mode_p) "{{{2
+  return columnjump#jump(1, a:mode_p)
 endfunction
 "}}}
 
@@ -42,10 +42,14 @@ endfunction
 " カーソル位置と同一列の次の文字列（列方向の）まで移動する
 "  direct_pが0より大きければ下方に向かって
 "  上記以外であれば上方に向かって移動する
-function! columnjump#jump(direct_p) "{{{2
+function! columnjump#jump(direct_p, mode_p) "{{{2
   " 仮想編集を有効にする
   let s:save_virtualedit = &virtualedit
   let &virtualedit = 'all'
+
+  if a:mode_p == 'v'
+    normal! gv
+  endif
 
   for i in range(v:count1)
     let l:cur_line = line('.')

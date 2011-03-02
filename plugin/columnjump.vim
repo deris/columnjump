@@ -26,8 +26,12 @@ if exists('g:loaded_columnjump')
   finish
 endif
 
-nnoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward()<CR>
-nnoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward()<CR>
+nnoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward('n')<CR>
+nnoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('n')<CR>
+vnoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward('v')<CR>
+vnoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('v')<CR>
+onoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward('o')<CR>
+onoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('o')<CR>
 
 let g:loaded_columnjump = 1
 
