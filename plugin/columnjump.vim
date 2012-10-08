@@ -33,6 +33,9 @@ vnoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('v'
 onoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward('o')<CR>
 onoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('o')<CR>
 
+command! -nargs=1 ColumnJumpBackward call columnjump#backward(<q-args>)
+command! -nargs=1 ColumnJumpForward  call columnjump#forward(<q-args>)
+
 let g:loaded_columnjump = 1
 
 " __END__
