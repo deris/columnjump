@@ -75,9 +75,9 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
       " fold考慮しないと終端行でループする。。。
       silent! foldopen!
       if a:direct_p > 0
-        normal! j
+        normal! gj
       else
-        normal! k
+        normal! gk
       endif
 
       " 移動前のスクリーン桁位置に移動
