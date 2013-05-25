@@ -54,9 +54,8 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
 
     for i in range(v:count1)
       let l:cur_line = line('.')
-      let l:last_line = line('$')
 
-      if s:is_end_of_jump(a:direct_p, l:cur_line, l:last_line)
+      if s:is_end_of_jump(a:direct_p, l:cur_line)
         break
       endif
 
@@ -84,7 +83,7 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
         " 移動前のスクリーン桁位置に移動
         exe 'normal! ' . l:cur_virtcol . '|'
 
-        if s:is_end_of_jump(a:direct_p, line('.'), l:last_line)
+        if s:is_end_of_jump(a:direct_p, line('.'))
           break
         endif
 
@@ -129,12 +128,16 @@ function! s:get_character_under_cursor() "{{{2
 endfunction
 "}}}
 
-function! s:is_end_of_jump(direct_p, line_p, last_line_p) "{{{2
+function! s:is_end_of_jump(direct_p, line_p) "{{{2
+  if !exists('s:last_line')
+    let s:last_line = line('$')
+  endif
+
   if a:direct_p <= 0 && a:line_p <= 1
     " 先頭行だったら終了
     return 1
   endif
-  if a:direct_p > 0 && a:line_p >= a:last_line_p
+  if a:direct_p > 0 && a:line_p >= s:last_line
     " 終端行だったら終了
     return 1
   endif
