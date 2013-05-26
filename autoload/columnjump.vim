@@ -69,8 +69,9 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
         let l:skip_space = 0
       endif
 
-      while 1
-        " fold考慮しないと終端行でループする。。。
+      let cur_pos = getpos('.')
+      let prev_pos = []
+      while cur_pos != prev_pos
         silent! foldopen!
         if a:direct_p > 0
           normal! gj
@@ -99,6 +100,9 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
             let l:skip_space = 1
           endif
         endif
+
+        let prev_pos = cur_pos
+        let cur_pos = getpos('.')
       endwhile
     endfor
   finally
