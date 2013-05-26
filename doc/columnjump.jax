@@ -27,8 +27,8 @@ CONTENTS					*columnjump-contents*
 
 Introduction		|columnjump-introduction|
 Interface		|columnjump-interface|
-  Mappings		  columnjump-mappings
-Examples		columnjump-examples
+  Mappings		  |columnjump-mappings|
+Examples		|columnjump-examples|
 Bugs			|columnjump-bugs|
 Changelog		|columnjump-changelog|
 
@@ -75,7 +75,7 @@ EXAMPLES					*columnjump-examples*
 ==============================================================================
 BUGS						*columnjump-bugs*
 
-- Currently, there is no known issue.
+- Don't support wrap on.
 
 
 
