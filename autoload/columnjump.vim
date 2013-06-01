@@ -106,6 +106,9 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
       endwhile
     endfor
   finally
+  if exists('s:last_line')
+    unlet s:last_line
+  endif
     let &virtualedit = s:save_virtualedit
   endtry
 
