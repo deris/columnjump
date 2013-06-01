@@ -39,6 +39,15 @@ endfunction
 "}}}
 
 " Private {{{1
+" wrap を無視するかどうかの設定
+if get(g:, 'columnjump_ignore_wrapped_lines', 0)
+  let s:forward_cmd = 'j'
+  let s:backward_cmd = 'k'
+else
+  let s:forward_cmd = 'gj'
+  let s:backward_cmd = 'gk'
+endif
+
 " カーソル位置と同一列の次の文字列（列方向の）まで移動する
 "  direct_pが0より大きければ下方に向かって
 "  上記以外であれば上方に向かって移動する
@@ -74,9 +83,9 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
       while cur_pos != prev_pos
         silent! foldopen!
         if a:direct_p > 0
-          normal! gj
+          execute 'normal! ' . s:forward_cmd
         else
-          normal! gk
+          execute 'normal! ' . s:backward_cmd
         endif
 
         " 移動前のスクリーン桁位置に移動
