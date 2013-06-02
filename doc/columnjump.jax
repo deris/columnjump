@@ -28,6 +28,7 @@ CONTENTS					*columnjump-contents*
 Introduction		|columnjump-introduction|
 Interface		|columnjump-interface|
   Mappings		  |columnjump-mappings|
+  Variables		  |columnjump-variables|
 Examples		|columnjump-examples|
 Bugs			|columnjump-bugs|
 Changelog		|columnjump-changelog|
@@ -60,6 +61,13 @@ MAPPINGS					*columnjump-mappings*
 <Plug>(columnjump-forward)				*<Plug>(columnjump-forward)*
 			These mappings are defined in Normal mode, Visual mode
 			and Operator-pending mode.
+
+------------------------------------------------------------------------------
+VARIABLES                                       *columnjump-variables*
+
+g:columnjump_ignore_wrapped_lines   boolean (default: false)
+	この変数を true に設定すると、移動する際に'wrap'により折り返された文字
+	列には止まらなくなります。
 
 
 ==============================================================================
