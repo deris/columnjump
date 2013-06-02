@@ -39,6 +39,7 @@ endfunction
 "}}}
 
 " Private {{{1
+
 " カーソル位置と同一列の次の文字列（列方向の）まで移動する
 "  direct_pが0より大きければ下方に向かって
 "  上記以外であれば上方に向かって移動する
@@ -46,6 +47,9 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
   " 仮想編集を有効にする
   let s:save_virtualedit = &virtualedit
   let &virtualedit = 'all'
+
+  " wrap を無視するかどうかの設定
+  let s:ignore_wrapped_lines = get(g:, 'columnjump_ignore_wrapped_lines', 0)
 
   try
     if a:mode_p == 'v'
@@ -74,9 +78,9 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
       while cur_pos != prev_pos
         silent! foldopen!
         if a:direct_p > 0
-          normal! gj
+          execute 'normal! ' . (s:ignore_wrapped_lines ? 'j' : 'gj')
         else
-          normal! gk
+          execute 'normal! ' . (s:ignore_wrapped_lines ? 'k' : 'gk')
         endif
 
         " 移動前のスクリーン桁位置に移動
