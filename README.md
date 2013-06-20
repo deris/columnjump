@@ -1,12 +1,12 @@
 columnjump
 ===
 
-This is Vim plugin to move same column non-space character.
+This is Vim plugin to move same column non-space character.  
 If start position's character is space, move same column
-non-space character.
+non-space character.  
 If start position's character is non-space, skip same column
 continuous non-space character and skip space and move next
-same column non-space character.
+same column non-space character.  
 
 
 Screenshot
