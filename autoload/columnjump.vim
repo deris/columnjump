@@ -65,13 +65,8 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
       " カーソル位置の文字
       let l:cur_char  = s:get_character_under_cursor()
 
-      if s:is_space(l:cur_char)
-        " spaceをskipするモード
-        let l:skip_space = 1
-      else
-        " spaceをskipしないモード
-        let l:skip_space = 0
-      endif
+      " spaceをskipするかしないか
+      let l:skip_space = s:is_space(l:cur_char)
 
       let cur_pos = getpos('.')
       let prev_pos = []
