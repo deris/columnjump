@@ -138,16 +138,8 @@ function! s:is_end_of_jump(direct_p) "{{{2
     let s:last_line = line('$')
   endif
 
-  if a:direct_p <= 0 && line <= 1
-    " 先頭行だったら終了
-    return 1
-  endif
-  if a:direct_p > 0 && line >= s:last_line
-    " 終端行だったら終了
-    return 1
-  endif
-
-  return 0
+  return (a:direct_p <= 0 && line <= 1) ||
+        \(a:direct_p > 0 && line >= s:last_line)
 endfunction
 "}}}
 
