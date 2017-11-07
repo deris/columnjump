@@ -1,6 +1,6 @@
 " columnjump - カーソル位置と同一列の次の文字列（列方向の）まで移動する
-" Version: 0.0.2
-" Copyright (C) 2011 deris0126
+" Version: 0.1.0
+" Copyright (C) 2011-2017 deris0126
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -26,12 +26,15 @@ if exists('g:loaded_columnjump')
   finish
 endif
 
-nnoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward('n')<CR>
-nnoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('n')<CR>
-vnoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward('v')<CR>
-vnoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('v')<CR>
-onoremap <silent> <Plug>(columnjump-backward)  :<C-u>call columnjump#backward('o')<CR>
-onoremap <silent> <Plug>(columnjump-forward)   :<C-u>call columnjump#forward('o')<CR>
+let g:columnjump_stop_every_edge    = 0
+let g:columnjump_linewise_when_omap = 0
+
+nnoremap <silent> <Plug>(columnjump-backward)           :<C-u>call columnjump#backward('n')<CR>
+nnoremap <silent> <Plug>(columnjump-forward)            :<C-u>call columnjump#forward('n')<CR>
+vnoremap <silent> <Plug>(columnjump-backward)           :<C-u>call columnjump#backward('v')<CR>
+vnoremap <silent> <Plug>(columnjump-forward)            :<C-u>call columnjump#forward('v')<CR>
+onoremap <silent> <Plug>(columnjump-backward)           :<C-u>call columnjump#backward('o')<CR>
+onoremap <silent> <Plug>(columnjump-forward)            :<C-u>call columnjump#forward('o')<CR>
 
 command! -nargs=1 ColumnJumpBackward call columnjump#backward(<q-args>)
 command! -nargs=1 ColumnJumpForward  call columnjump#forward(<q-args>)

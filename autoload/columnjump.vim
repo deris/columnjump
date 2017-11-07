@@ -1,6 +1,6 @@
 " columnjump - カーソル位置と同一列の次の文字列（列方向の）まで移動する
-" Version: 0.0.2
-" Copyright (C) 2011 deris0126
+" Version: 0.1.0
+" Copyright (C) 2011-2017 deris0126
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -54,11 +54,20 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
   try
     if a:mode_p == 'v'
       normal! gv
+    elseif (a:mode_p == 'o') && (g:columnjump_linewise_when_omap != 0)
+      normal! V
     endif
 
     for i in range(v:count1)
       if s:is_end_of_jump(a:direct_p)
         break
+      endif
+
+      let l:next_line = line('.')
+      if a:direct_p > 0
+        let l:next_line += 1
+      else
+        let l:next_line -= 1
       endif
 
       let l:cur_virtcol  = virtcol('.')
@@ -94,7 +103,16 @@ function! columnjump#jump(direct_p, mode_p) "{{{2
           endif
         else
           if s:is_space(l:wk_char)
-            " 移動前がspaceでなくてspaceまで移動したら
+            " 移動前がspaceでなくてspaceまで移動した場合
+            if (g:columnjump_stop_every_edge != 0) && l:next_line != line('.')
+              " すべてのエッジで止まるオプションが有効だった場合
+              if a:direct_p > 0
+                execute 'normal! ' . (s:ignore_wrapped_lines ? 'k' : 'gk')
+              else
+                execute 'normal! ' . (s:ignore_wrapped_lines ? 'j' : 'gj')
+              endif
+              break
+            endif
             " spaceをskipするモードに移行
             let l:skip_space = 1
           endif
